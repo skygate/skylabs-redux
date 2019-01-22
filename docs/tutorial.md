@@ -1,15 +1,10 @@
 # Redux Workshops
 
-- [Redux Workshops](#redux-workshops)
-  - [Three Principles](#three-principles)
-  - [Project setup](#project-setup)
-  - [App Component - App.js](#app-component---appjs)
-  - [Index.js](#indexjs)
-  - [Actions](#actions)
-    - [Exercise 1](#exercise-1)
-  - [Reducers](#reducers)
-    - [Exercise 2](#exercise-2)
-    - [Combine reducers](#combine-reducers)
+- [Three Principles](#three-principles)
+- [Project setup](#project-setup)
+- [Actions](#actions)
+- [Reducers](#reducers)
+- [Combine reducers](#combine-reducers)
 
 ## Three Principles
 
