@@ -1,24 +1,15 @@
----
-title:
-description:
-author:
-date:
-image:
-link:
-category: []
-tag: []
-published: true
----
-
-<!-- end -->
-
 # Redux Workshops
 
-1. [Three principles of Redux](#three-principles)
-2. [Project setup](#project-setup)
-3. [Actions](#actions)
-4. [Reducers](#reducers)
-5. [Store](#store)
+- [Redux Workshops](#redux-workshops)
+  - [Three Principles](#three-principles)
+  - [Project setup](#project-setup)
+  - [App Component - App.js](#app-component---appjs)
+  - [Index.js](#indexjs)
+  - [Actions](#actions)
+    - [Exercise 1](#exercise-1)
+  - [Reducers](#reducers)
+    - [Exercise 2](#exercise-2)
+    - [Combine reducers](#combine-reducers)
 
 ## Three Principles
 
@@ -70,7 +61,7 @@ This should start our project on port **3000**
 
 ![(React App)](image1.png)
 
-So now we have our boilerplate app. Next we need to clear the app structure, for that you need do the following
+So now we have our boilerplate app. Next, we need to clear the app structure, for that, you need to do the following
 
 ```
 rm src/App.* src/serviceWorker.js src/logo.svg
@@ -78,7 +69,7 @@ echo '' > src/index.js
 echo '' > src/index.css
 ```
 
-Before we start coding our app we ned instal Redux. To do this type in terminal the following:
+Before we start coding our app we need to install Redux. To do this type in terminal the following:
 
 For **npm**
 
@@ -92,7 +83,7 @@ or if you use **Yarn**
 yarn add redux react-redux
 ```
 
-Right now we can start hacking 😉 &nbsp;our Redux app.
+Right now we can start hacking 😉 our Redux app.
 
 ## App Component - App.js
 
@@ -165,7 +156,7 @@ To remove comment we need know which comment should be removed. This can be done
 }
 ```
 
-Next edit comment. For successfully edit comment we need exactly know which comment and what is new content of comment. So an action object should look like this:
+Next edit comment. For successfully edit comment we need exactly know which comment and what is new content of the comment. So an action object should look like this:
 
 ```
 {
@@ -177,7 +168,7 @@ Next edit comment. For successfully edit comment we need exactly know which comm
 }
 ```
 
-With this knowledge, we can now make actions and action creators for whole our app. Let's do this!
+With this knowledge, we can now make actions and action creators for the whole of our app. Let's do this!
 
 Firstly in `src` create folder `actions` and in it create file `actions.js`.
 Then create constants for each action name (add, edit, remove, thumb up, thumb down).
@@ -189,7 +180,7 @@ const REMOVE_COMMENT = "REMOVE_COMMENT";
 const EDIT_COMMENT = "EDIT_COMMENT";
 ```
 
-Next step is making actions creator. As you know, action creator is function that returns action object. Let's write its.
+Next step is making actions creator. As you know, action creator is a function that returns action object. Let's write it.
 
 ```
 let commentID = 0;
@@ -205,7 +196,7 @@ const addComment = text => ({
 
 \*Note: _the variable `commentID` will store for us the next comment's id value_.
 
-#### Exercise 1
+### Exercise 1
 
 Based on the above write missing action types (vote up and vote down) and missing action creators.
 Don't forget to export each action and each action creator.
@@ -226,7 +217,7 @@ Don't forget to export each action and each action creator.
 
 &nbsp;
 
-**Good job!** Right now your file should looks similar to this.
+**Good job!** Right now your file should look similar to this.
 
 ![actions.js](actions-js.png)
 
@@ -290,7 +281,7 @@ If comments will be related to a user, the state structure can look like this:
 }
 ```
 
-Time to write first reducer.
+Time to write the first reducer.
 
 In `src` create folder `reducers`. In this folder create file `reducers.js`.
 
@@ -325,7 +316,7 @@ Otherwise, it returns the previous state as default.
 
 Let's start with the add comment action.
 
-```
+```javascript
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_COMMENT:
@@ -339,7 +330,7 @@ const reducer = (state = initialState, action) => {
           },
           ...state.comments
         ]
-      }
+      };
     default:
       return state;
   }
@@ -349,19 +340,19 @@ const reducer = (state = initialState, action) => {
 But...
 The reducer doesn't know what is `ADD_COMMENT`, because all our actions types are defined in file `actions.js`. There are exported, too. Time to import this action on the top of the reducer file.
 
-```
-import {ADD_COMMENT} from '../actions/actions'
+```javascript
+import { ADD_COMMENT } from "../actions/actions";
 ```
 
 So the first change of app state is handled.
 
 The case that needs more effort on the first sight is the remove comment action.
-The new state should contains a comments list (array) without the one removed comment.
+The new state should contain a comments list (array) without the one removed comment.
 But...
 
 With `Array.filter()` method - it will be easy. All that we need to do is filter the current comments list and return all comments with _id_ different than removed one.
 
-```
+```javascript
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_COMMENT:
@@ -377,8 +368,28 @@ const reducer = (state = initialState, action) => {
 };
 ```
 
-#### Exercise 2
+### Exercise 2
 
 The goal is to write code for handling all other actions (edit, vote). Note that voting is two different actions (`VOTE_UP_COMMENT` and `VOTE_DOWN_COMMENT`). Remember to import all of the actions.
+
+**Don't look below.**
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+**Try your self!**
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+**Good job!** Right now your file should looks similar to this.
+
+![reducers.js](reducers-js.png)
 
 ### Combine reducers
