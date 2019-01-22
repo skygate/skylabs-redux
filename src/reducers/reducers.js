@@ -11,7 +11,7 @@ const initialState = {
   users: []
 };
 
-const reducers = (state = initialState, action) => {
+export const reducers = (state = initialState, action) => {
   switch (action.type) {
     case ADD_COMMENT:
       return {
@@ -24,14 +24,14 @@ const reducers = (state = initialState, action) => {
           },
           ...state.comments
         ]
-      };
+      }
     case REMOVE_COMMENT:
       return {
         ...state,
         comments: state.comments.filter(
           comment => comment.id !== action.payload.id
         )
-      };
+      }
     case EDIT_COMMENT:
       return {
         ...state,
@@ -40,7 +40,7 @@ const reducers = (state = initialState, action) => {
             ? { ...comment, text: action.payload.text }
             : comment
         )
-      };
+      }
     case VOTE_UP_COMMENT:
       return {
         ...state,
@@ -49,7 +49,7 @@ const reducers = (state = initialState, action) => {
             ? { ...comment, votes: comment.votes + 1 }
             : comment
         )
-      };
+      }
     case VOTE_DOWN_COMMENT:
       return {
         ...state,
@@ -58,7 +58,7 @@ const reducers = (state = initialState, action) => {
             ? { ...comment, votes: comment.votes - 1 }
             : comment
         )
-      };
+      }
     default:
       return state;
   }
