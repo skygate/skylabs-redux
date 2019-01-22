@@ -34,25 +34,25 @@ To create our skylab app, you may choose one of the following methods:
 
 **_npx_**
 
-```
+```bash
 npx create-react-app skylab-app
 ```
 
 **_npm_**
 
-```
+```bash
 npm init react-app skylab-app
 ```
 
 **_Yarn_**
 
-```
+```bash
 yarn create react-app skylab-app
 ```
 
 Now that our project is setup. In your terminal do the following:
 
-```
+```bash
 cd skylabs-app
 npm start
 ```
@@ -63,7 +63,7 @@ This should start our project on port **3000**
 
 So now we have our boilerplate app. Next, we need to clear the app structure, for that, you need to do the following
 
-```
+```bash
 rm src/App.* src/serviceWorker.js src/logo.svg
 echo '' > src/index.js
 echo '' > src/index.css
@@ -73,13 +73,13 @@ Before we start coding our app we need to install Redux. To do this type in term
 
 For **npm**
 
-```
+```bash
 npm install redux react-redux
 ```
 
 or if you use **Yarn**
 
-```
+```bash
 yarn add redux react-redux
 ```
 
@@ -107,7 +107,7 @@ An **action** in Redux is a JavaScript object. It has a **type** and an optional
 
 In our case is an app for managing comments so we need actions, eg. add a comment. This action can look like this:
 
-```
+```javascript
 {
     type: "ADD_COMMENT",
     payload: {
@@ -118,7 +118,7 @@ In our case is an app for managing comments so we need actions, eg. add a commen
 
 Since strings are prone to typos and duplicates it’s better to have action types declared as _constants_. This above action can look this:
 
-```
+```javascript
 const ADD_COMMENT = 'ADD_COMMENT';
 
 {
@@ -133,7 +133,7 @@ It is a best practice to wrap every action within a function. Such function is a
 
 For above action the action creator can look this:
 
-```
+```javascript
 const addComment = text => ({
   type: ADD_COMMENT,
   payload: {
@@ -146,8 +146,7 @@ For managing comments we need several types of actions: remove, edit a comment a
 
 To remove comment we need know which comment should be removed. This can be done by passing comment's id to an action. The action object `REMOVE_COMMENT` will look like this:
 
-```
-
+```javascript
 {
     type: "REMOVE_COMMENT",
     payload: {
@@ -158,7 +157,7 @@ To remove comment we need know which comment should be removed. This can be done
 
 Next edit comment. For successfully edit comment we need exactly know which comment and what is new content of the comment. So an action object should look like this:
 
-```
+```javascript
 {
     type: "EDIT_COMMENT",
     payload: {
@@ -174,7 +173,7 @@ Firstly in `src` create folder `actions` and in it create file `actions.js`.
 Then create constants for each action name (add, edit, remove, thumb up, thumb down).
 Here are the first three:
 
-```
+```javascript
 const ADD_COMMENT = "ADD_COMMENT";
 const REMOVE_COMMENT = "REMOVE_COMMENT";
 const EDIT_COMMENT = "EDIT_COMMENT";
@@ -182,7 +181,7 @@ const EDIT_COMMENT = "EDIT_COMMENT";
 
 Next step is making actions creator. As you know, action creator is a function that returns action object. Let's write it.
 
-```
+```javascript
 let commentID = 0;
 
 const addComment = text => ({
@@ -234,7 +233,7 @@ Before we start writing our reducers function we need to think about how the sta
 Keep in mind that this structure should be as flat as possible.
 Our app is a simple case, comments are anonymous so we have only a comment's list - the state structure is an array with comments.
 
-```
+```javascript
 {
   comments: [
     {
@@ -254,7 +253,7 @@ Our app is a simple case, comments are anonymous so we have only a comment's lis
 But...
 If comments will be related to a user, the state structure can look like this:
 
-```
+```javascript
 {
   comments: [
     {
@@ -290,7 +289,7 @@ But...
 What if our app just start and there is no current state yet?
 For this case, we prepare `initialState` variable.
 
-```
+```javascript
 const initialState = {
   comments: [],
   user: []
@@ -299,7 +298,7 @@ const initialState = {
 
 Thanks to ES6 syntax - default argument - in the reducer function we can handle the initial application state in a simple way.
 
-```
+```javascript
 const reducer = (state = initialState, action) => {
   return state;
 };
