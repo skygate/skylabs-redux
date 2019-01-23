@@ -1,6 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { store } from "./store/store";
+import { addComment } from "./actions/actions";
 
-import App from "./App.js";
-
-ReactDOM.render(<App />, document.getElementById("root"));
+window.store = store;
+window.addComment = addComment;
