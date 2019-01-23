@@ -1,15 +1,21 @@
-# Redux Workshops
+# \#4 skylabs - Redux Workshops
 
 - [Three Principles](#three-principles)
 - [Project setup](#project-setup)
 - [Actions](#actions)
+  - [Exercise 1](#exercise-1)
 - [Reducers](#reducers)
+  - [Exercise 2](#exercise-2)
 - [Combine reducers](#combine-reducers)
+  - [Exercise 3](#exercise-3)
 - [Store](#store)
+  - [Exercise 4](#exercise-4)
+- [Connecting React with Redux](#connecting-react-with-redux)
+  - [App Component](#app-component)
 
 ## Three Principles
 
-Redux can be described in three fundamental principles:
+**Redux** can be described in three fundamental principles:
 
 - **Single source of truth.**
   The state of your whole application is stored in an object tree within a single store.
@@ -55,7 +61,7 @@ npm start
 
 This should start our project on port **3000**
 
-![(React App)](image1.png)
+![(React App)](./images/image1.png)
 
 So now we have our boilerplate app. Next, we need to clear the app structure, for that, you need to do the following
 
@@ -81,13 +87,13 @@ yarn add redux react-redux
 
 Right now we can start hacking 😉 our Redux app.
 
-## App Component - App.js
+**App Component - App.js**
 
 In folder `src` create a file `App.js` which will be containing the following code:
 
 ![App.js](./images/App.png)
 
-## Index.js
+**Index.js**
 
 Now let's create `index.js` file. It should be in folder `src`, too.
 
@@ -387,7 +393,7 @@ The goal is to write code for handling all other actions (edit, vote). Note that
 
 ![reducers.js](./images/reducers-js.png)
 
-### Combine reducers
+## Combine reducers
 
 Our app state is combined from two small states: `comments` and `users`.
 When you look closer to the reducers function, you can see that for each comment action we are taking the whole state of the app.
@@ -587,3 +593,33 @@ Simply - the Redux!
 
 Explore these three methods as an exercise.
 Add more actions and play with them in the browser's console.
+
+## Connecting React with Redux
+
+Redux is framework agnostic.
+It can be used with vanilla JS. Or with Angular. Or with React.
+There are many bindings that can join Redux together with your favorite framework.
+For React is **react-redux**.
+You can install it by using:
+
+```bash
+npm install react-redux
+```
+
+The react-redux package exposes a very simple interface, and all you should be interested in is just the following:
+
+- **\<Provider store>** - wraps the React application and makes the Redux state available to all container components in the application’s hierarchy
+- **connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])**  -  creates a higher-order component for making container components out of base React components
+
+The fundamental things to know are:
+
+- the mapStateToProps function
+- the mapDispatchToProps function or object
+
+**mapStateToProps** does exactly what its name suggests:
+it connects a part of the Redux state to the props of a React component.
+
+**mapDispatchToProps** does something similar,
+but for actions. mapDispatchToProps connects Redux actions to React props.
+
+### App Component
