@@ -5,6 +5,7 @@
 - [Actions](#actions)
 - [Reducers](#reducers)
 - [Combine reducers](#combine-reducers)
+- [Store](#store)
 
 ## Three Principles
 
@@ -84,17 +85,17 @@ Right now we can start hacking 😉 our Redux app.
 
 In folder `src` create a file `App.js` which will be containing the following code:
 
-![(App.js code)](App.png)
+![App.js](./images/App.png)
 
 ## Index.js
 
 Now let's create `index.js` file. It should be in folder `src`, too.
 
-![(index.js)](index-js.png)
+![index.js](./images/index-js.png)
 
 Now app looks like that:
 
-![()](basis-app.png)
+![Initial app view](./images/basis-app.png)
 
 ## Actions
 
@@ -213,7 +214,7 @@ Don't forget to export each action and each action creator.
 
 **Good job!** Right now your file should look similar to this.
 
-![actions.js](actions-js.png)
+![actions.js](./images/actions-js.png)
 
 ## Reducers
 
@@ -384,7 +385,7 @@ The goal is to write code for handling all other actions (edit, vote). Note that
 
 **Good job!** Right now your file should looks similar to this.
 
-![reducers.js](reducers-js.png)
+![reducers.js](./images/reducers-js.png)
 
 ### Combine reducers
 
@@ -455,6 +456,16 @@ Don't waste your time for the users' reducer file - we don't create any action f
 
 &nbsp;
 
-**Good job!** Right now your files should looks similar to these.
+**Good job!** Right now your files should looks similar to these:
+
+`commentsReducer.js`
+![Comments reducer](./images/commentsReducer.png)
+
+`usersReducer.js`
+![Users reducer](./images/usersReducer.png)
+
+`rootReducer.js`
+![Root reducer](./images/rootReducer.png)
 
 
+## Store
