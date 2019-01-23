@@ -475,12 +475,6 @@ It's a place that 'glues' actions and reducers.
 There should be only one store in Redux application.
 The only way to change the state inside it is to dispatch an action on it.
 
-Redux itself is a small library about 2KB. The Redux store exposes a simple API for managing the state. The most important methods are:
-
-- getState for accessing the current state of the application
-- dispatch for dispatching an action
-- subscribe for listening on state changes
-
 Let's create our store. 
 For this, use a function `createStore()`.
 This function takes as the first argument the higher orderer reducer (this one which is not composed with others).
@@ -498,3 +492,11 @@ export const store = createStore(rootReducer);
 ```
 
 Yeah! That it's! Our store is created!
+
+Redux itself is a small library about 2KB. 
+The Redux store exposes a simple API for managing the state. 
+The most important methods are:
+
+- `getState` for accessing the current state of the application
+- `dispatch` for dispatching an action
+- `subscribe` for listening on state changes
