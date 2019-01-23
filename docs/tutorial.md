@@ -407,7 +407,7 @@ const commentsReducer = (state = [], action) => {
           votes: 0
         },
         ...state
-      ]
+      ];
   }
 };
 ```
@@ -475,7 +475,7 @@ It's a place that 'glues' actions and reducers.
 There should be only one store in Redux application.
 The only way to change the state inside it is to dispatch an action on it.
 
-Let's create our store. 
+Let's create our store.
 For this, use a function `createStore()`.
 This function takes as the first argument the higher orderer reducer (this one which is not composed with others).
 In our app it's `rootReducer`.
@@ -486,17 +486,104 @@ In the folder `src/store` create file `store.js`
 ```javascript
 import { createStore } from "redux";
 
-import { rootReducer } from '../reducers/rootReducer'
+import { rootReducer } from "../reducers/rootReducer";
 
 export const store = createStore(rootReducer);
 ```
 
 Yeah! That it's! Our store is created!
 
-Redux itself is a small library about 2KB. 
-The Redux store exposes a simple API for managing the state. 
+Redux itself is a small library about 2KB.
+The Redux store exposes a simple API for managing the state.
 The most important methods are:
 
 - `getState` for accessing the current state of the application
 - `dispatch` for dispatching an action
 - `subscribe` for listening on state changes
+
+Time to play with them. We will play in the browser's console.
+
+So we need to export as global variables the store and the actions we have created earlier.
+Open file `src/index.js` and delete all from it. Update it with the following code:
+
+```javascript
+import { store } from "./store/store";
+import { addComment, voteUpComment } from "./actions/actions";
+
+window.store = store;
+window.addComment = addComment;
+window.voteUpComment = voteUpComment;
+```
+
+Now run dev server with:
+
+```bash
+npm start
+```
+
+head over http://localhost:3000 and open up the console with F12.
+
+We've exported the store as a global variable so we can access its methods. Let's try!
+
+The first - accessing current state.
+
+```javascript
+store.getState();
+```
+
+output:
+
+```bash
+{comments: Array(0), users: Array(0)}
+```
+
+Zero comments, zero users. Indeed! We haven't update the initial state yet.
+
+The interesting thing is that we can listen to state updates with **subscribe**.
+
+The subscribe method accepts a callback that will call whenever an action is dispatched.
+Dispatching an action means notifying the store that we want to change the state.
+
+Let's register a callback!
+
+```javascript
+store.subscribe(() => console.log("Yeah! It's Redux!"));
+```
+
+The only way to change state in Redux is dispatching an action.
+To do this you need to call the **dispatch** method.
+We have only one action on our disposal: `addComment()` for adding a new comment to the state.
+
+Let’s dispatch the action with:
+
+```javascript
+store.dispatch(addComment("New Comment!"));
+```
+
+After you hit Enter key you should see:
+
+```bash
+Yeah! It's Redux!
+{type: "ADD_COMMENT", payload: {…}}
+```
+
+To verify that the state changed run again:
+
+```javascript
+store.getState();
+```
+
+Now the output should be:
+
+```bash
+{comments: Array(1), users: Array(0)}
+```
+
+And that's all!
+
+Simply - the Redux!
+
+### Exercise 4
+
+Explore these three methods as an exercise.
+Add more actions and play with them in the browser's console.
