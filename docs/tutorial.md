@@ -625,20 +625,6 @@ but for actions. mapDispatchToProps connects Redux actions to React props.
 To start connecting Redux with React we’re going to use Provider in `src/index.js`.
 Provider is a high order component coming from react-redux - it wraps up React app and makes available to it the entire Redux’s store.
 
-```javascript
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-
-import store from "./store/store";
-import App from "./App.js";
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
-```
+![index.js with Provider](./images/index-with-provider.png)
 
 ### App Component
