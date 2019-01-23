@@ -467,5 +467,34 @@ Don't waste your time for the users' reducer file - we don't create any action f
 `rootReducer.js`
 ![Root reducer](./images/rootReducer.png)
 
-
 ## Store
+
+What is Redux Store?
+The store is an object that holds the whole state of our application.
+It's a place that 'glues' actions and reducers.
+There should be only one store in Redux application.
+The only way to change the state inside it is to dispatch an action on it.
+
+Redux itself is a small library about 2KB. The Redux store exposes a simple API for managing the state. The most important methods are:
+
+- getState for accessing the current state of the application
+- dispatch for dispatching an action
+- subscribe for listening on state changes
+
+Let's create our store. 
+For this, use a function `createStore()`.
+This function takes as the first argument the higher orderer reducer (this one which is not composed with others).
+In our app it's `rootReducer`.
+Note that function createStore as the second argument (optional) takes preloaded state of store.
+It can be usefully in eg. to hydrate the state from server.
+In the folder `src/store` create file `store.js`
+
+```javascript
+import { createStore } from "redux";
+
+import { rootReducer } from '../reducers/rootReducer'
+
+export const store = createStore(rootReducer);
+```
+
+Yeah! That it's! Our store is created!
