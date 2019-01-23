@@ -387,3 +387,74 @@ The goal is to write code for handling all other actions (edit, vote). Note that
 ![reducers.js](reducers-js.png)
 
 ### Combine reducers
+
+Our app state is combined from two small states: `comments` and `users`.
+When you look closer to the reducers function, you can see that for each comment action we are taking the whole state of the app.
+This no looks pretty and need from us more work.
+So because the comments state is not related with the user state the best practice is to extract them to separated files.
+
+Let's do this for the comment's reducer.
+
+```javascript
+const commentsReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD_COMMENT:
+      return [
+        {
+          id: action.payload.id,
+          text: action.payload.text,
+          votes: 0
+        },
+        ...state
+      ]
+  }
+};
+```
+
+As you can see, now the initial state is an empty array.
+We don't need to care about the whole state of the app.
+Our new reducer will handle only the part of the app state that is related to comments.
+Handling small parts of data is always easier and makes code cleaner.
+Our new reducer returns a new array of comments - there is no mutation and it is a pure function - so we don't break any of the three Redux principles.
+
+Ok, we have our new separated reducers.
+Time to merging them into one the root reducer.
+The Redux has a helper function called `combineReducers` that help us to merge reducer into one reducer.
+It can look like this below:
+
+```javascript
+import { combineReducers } from "redux";
+
+import commentsReducer from "./commentsReducer";
+import usersReducer from "./usersReducer";
+
+const rootReducer = combineReducers({
+  comments: commentsReducer,
+  users: usersReducer
+});
+```
+
+### Exercise 3
+
+Your goal is to refactor file `reducers.js` that will import the extracted **comments** reducer (it should be in a separated file called `commentsReducer.js`).
+Don't waste your time for the users' reducer file - we don't create any action for users state - so you can just return the unchanged user state in it.
+
+**Don't look below.**
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+**Try your self!**
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+**Good job!** Right now your files should looks similar to these.
+
+
