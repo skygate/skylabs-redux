@@ -708,14 +708,14 @@ const App = () => <CommentsListContainer />;
 export default App;
 ```
 
-Time to make small test. In file `index.js` import an action creator `addComment`. Then on the bottom of the file (below ReactDOM.render() method) put these two lines.
+Time to make small test. In the file `index.js` import an action creator `addComment`. Then on the bottom of the file (below ReactDOM.render() method) put these two lines.
 
 ```javascript
 store.dispatch(addComment("The first comment!"));
 store.dispatch(addComment("The second comment!"));
 ```
 
-Yeah! It's kind of a hardcode, but if you done all things properly you should see something like this:
+Yeah! It's kind of a hardcode, but if you have done all things properly you should see something like this:
 
 ![App screenshot](./images/app-screenshot1.png)
 
