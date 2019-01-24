@@ -494,7 +494,9 @@ import { createStore } from "redux";
 
 import { rootReducer } from "../reducers/rootReducer";
 
-export const store = createStore(rootReducer);
+const store = createStore(rootReducer);
+
+export default store;
 ```
 
 Yeah! That it's! Our store is created!
