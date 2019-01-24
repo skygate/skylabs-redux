@@ -717,4 +717,35 @@ Yeah! It's kind of a hardcode, but if you have done all things properly you shou
 
 ![App screenshot](./images/app-screenshot1.png)
 
+Now we try to connect an action to component. Let's do fo voting up.
+Go back to `Comments.jsx`.
+As in CommentsList component we need to import `connect` method from _react-redux_. We need to import an action creator for voting up. It will be `voteUpComment`.
+
+```javascript
+import React from "react";
+import { connect } from "react-redux";
+
+import { voteUpComment } from "../actions/actions";
+
+const CommentRaw = ({ text, votes, id, voteUpComment }) => (
+  <li>
+    {text} <span>votes: {votes}</span>
+    <button onClick={() => voteUpComment(id)}>Vote Up</button>
+  </li>
+);
+
+export const Comment = connect(
+  null,
+  { voteUpComment }
+)(CommentRaw);
+```
+
+As you can see we do some refactoring.
+We change the name of the base component and add a button for voting up.
+The last thing we need to do is dispatch the action to the store.
+As earlier, we use `connect`, but this time we don't pass any state to props so the first argument is null.
+The second one is an object with our action creators that we pass to the component.
+
+![App screenshot](./images/app-screenshot2.png)
+
 So if everything is OK, remove this added code \*\*
