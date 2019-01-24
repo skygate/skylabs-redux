@@ -14,6 +14,7 @@
   - [App Component](#app-component)
   - [Comment Component](#comment-component)
   - [CommentsList component](#commentslist-component)
+  - [Exercise 5](#exercise-5)
 
 ## Three Principles
 
@@ -748,4 +749,11 @@ The second one is an object with our action creators that we pass to the compone
 
 ![App screenshot](./images/app-screenshot2.png)
 
-So if everything is OK, remove this added code \*\*
+### Exercise 5
+
+Time to own work.
+
+Add an opposite feature to the voting up.
+If you want you can add a feature for delete a comment or even a feature for add a comment.
+
+**NOTE!** So if everything is OK, remove this added code \*\*
