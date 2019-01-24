@@ -708,4 +708,6 @@ store.dispatch(addComment("The second comment!"));
 
 Yeah! It's kind of a hardcode, but if you done all things properly you should see something like this:
 
+![App screenshot](./images/app-screenshot1.png)
+
 So if everything is OK, remove this added code.
