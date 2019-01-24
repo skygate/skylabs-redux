@@ -1,6 +1,6 @@
 import React from "react";
-import { CommentsListContainer } from "./containers/CommentsListContainer";
+import { CommentsList } from "./components/CommentsList";
 
-const App = () => <CommentsListContainer />;
+const App = () => <CommentsList />;
 
 export default App;
