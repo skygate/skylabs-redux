@@ -14,7 +14,6 @@
   - [App Component](#app-component)
   - [Comment Component](#comment-component)
   - [CommentsList component](#commentslist-component)
-  - [CommentsListContainer component](#commentslistcontainer-component)
 
 ## Three Principles
 
@@ -666,7 +665,7 @@ import React from "react";
 
 import { Comment } from "./Comment";
 
-export const CommentsList = ({ comments }) => (
+const CommentsListRaw = ({ comments }) => (
   <ul>
     {comments.map(comment => (
       <Comment key={comment.id} {...comment} />
@@ -675,40 +674,39 @@ export const CommentsList = ({ comments }) => (
 );
 ```
 
-### CommentsListContainer component
-
 Time to connect our React component to the Redux store. We will use the react-redux method `connect`.
-
-Let's do this. In the folder `src/containers` create a file `CommentsListContainer.jsx` with the following"
+We need to import it. Add the following import:
 
 ```javascript
 import { connect } from "react-redux";
+```
 
-import { CommentsList } from "../components/CommentsList";
+Now we need to pass the part of app state related with comments list to the component.
 
+```javascript
 const mapStateToProps = state => ({
   comments: state.comments
 });
 
-export const CommentsListContainer = connect(mapStateToProps)(CommentsList);
+export const CommentsList = connect(mapStateToProps)(CommentsListRaw);
 ```
 
 The function **mapStateToProps** on input gets the app state and on output returns an object with the specified part of the app state.
 In our case, the specified part of app state is `state.comments`.
 It will be passed to the component CommentList as its props `comments` using the function `connect`.
 
-Let's return to App component and let's update it.
+Let's return to App component and update it.
 
 ```javascript
 import React from "react";
-import { CommentsListContainer } from "./containers/CommentsListContainer";
+import { CommentsList } from "./components/CommentsList";
 
-const App = () => <CommentsListContainer />;
+const App = () => <CommentsList />;
 
 export default App;
 ```
 
-Time to make small test. In the file `index.js` import an action creator `addComment`. Then on the bottom of the file (below ReactDOM.render() method) put these two lines.
+\*\*Time to make small test. In the file `index.js` import an action creator `addComment`. Then on the bottom of the file (below ReactDOM.render() method) put these two lines.
 
 ```javascript
 store.dispatch(addComment("The first comment!"));
@@ -719,4 +717,4 @@ Yeah! It's kind of a hardcode, but if you have done all things properly you shou
 
 ![App screenshot](./images/app-screenshot1.png)
 
-So if everything is OK, remove this added code.
+So if everything is OK, remove this added code \*\*
