@@ -697,6 +697,17 @@ The function **mapStateToProps** on input gets the app state and on output retur
 In our case, the specified part of app state is `state.comments`.
 It will be passed to the component CommentList as its props `comments` using the function `connect`.
 
+Let's return to App component and let's update it.
+
+```javascript
+import React from "react";
+import { CommentsListContainer } from "./containers/CommentsListContainer";
+
+const App = () => <CommentsListContainer />;
+
+export default App;
+```
+
 Time to make small test. In file `index.js` import an action creator `addComment`. Then on the bottom of the file (below ReactDOM.render() method) put these two lines.
 
 ```javascript
