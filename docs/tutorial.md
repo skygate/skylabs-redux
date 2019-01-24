@@ -15,6 +15,8 @@
   - [Comment Component](#comment-component)
   - [CommentsList component](#commentslist-component)
   - [Exercise 5](#exercise-5)
+- [Redux Middleware](#redux-middleware)
+  - [Redux Dev Tools](#redux-dev-tools)
 
 ## Three Principles
 
@@ -757,3 +759,48 @@ Add an opposite feature to the voting up.
 If you want you can add a feature for delete a comment or even a feature for add a comment.
 
 **NOTE!** So if everything is OK, remove this added code \*\*
+
+## Redux Middleware
+
+**What is Redux Middleware?**
+
+A Redux middleware is a function that is able to intercept, and act accordingly, our actions, before they reach the reducer. And while the theory is quite simple, a Redux middleware can look a bit confusing. In its basic form a Redux middleware is a function returning a function, which takes next as a parameter. Then the inner function returns another function which takes action as a parameter and finally returns next(action).
+
+```javascript
+function exampleMiddleware() {
+  return function(next) {
+    return function(action) {
+      // do your stuff
+      return next(action);
+    };
+  };
+}
+```
+
+In most case middleware is additional software that we often download as packages.
+It is fired between the moment in which we dispatch the action and the moment in which the reducer receives it.
+As well we can write our own middleware.
+
+### Redux Dev Tools
+
+Redux Dev Tools is a tool that helps us in development time to inspect which and when actions were fired, helps to delete action and more...
+
+If you don't have installed Redux Dev Tools yet, please go [here](https://extension.remotedev.io/#installation) and install depends on your internet browser.
+
+Now, we update the store file.
+
+```javascript
+import { createStore } from "redux";
+
+import { rootReducer } from "../reducers/rootReducer";
+
+const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+export default store;
+```
+
+Now we can inspect our app.
