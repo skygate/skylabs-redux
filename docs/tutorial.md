@@ -17,6 +17,7 @@
   - [Exercise 5](#exercise-5)
 - [Redux Middleware](#redux-middleware)
   - [Redux Dev Tools](#redux-dev-tools)
+- [Creating custom middleware](#creating-custom-middleware)
 
 ## Three Principles
 
@@ -806,3 +807,55 @@ export default store;
 Now we can inspect our app.
 
 ![ReduxDevTools](./images/ReduxDevTools.png)
+
+## Creating custom middleware
+
+Middleware can be custom function too. We can create own middleware. Let's do this.
+
+Our middleware will be checking if the new comment that is adding contain any word from the list of forbidden words.
+When it contains we will dispatch an action "FOUND_BAD_WORD".
+
+```javascript
+import { ADD_COMMENT } from "../actions/actions";
+
+const forbiddenWords = ["hate", "php"];
+
+export const forbiddenWordsMiddleware = ({ dispatch }) => {
+  return next => action => {
+    if (action.type === ADD_COMMENT) {
+      const foundWord = forbiddenWords.filter(word =>
+        action.payload.text.includes(word)
+      );
+      if (foundWord.length) {
+        return dispatch({ type: "FOUND_BAD_WORD" });
+      }
+    }
+    return next(action);
+  };
+};
+```
+
+Yeah! It's simple middleware but you can see how it works.
+There's one step to do before we can use them.
+We need to update our Redux store.
+Because we want to use our custom middleware together with the Redux Dev Tools
+we need to use utility `applyMiddleware`.
+
+```javascript
+import { createStore, applyMiddleware, compose } from "redux";
+
+import { rootReducer } from "../reducers/rootReducer";
+import { forbiddenWordsMiddleware } from "../middleware/forbiddenWordsMiddleware";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(forbiddenWordsMiddleware))
+);
+
+export default store;
+```
+
+After trying add comment with one of the forbidden words it can look like this in the dev tools:
+
+![App screenshot](./images/app-screenshot3.png)
