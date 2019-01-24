@@ -804,3 +804,5 @@ export default store;
 ```
 
 Now we can inspect our app.
+
+![ReduxDevTools](./images/ReduxDevTools.png)
