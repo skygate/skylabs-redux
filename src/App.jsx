@@ -1,7 +1,6 @@
 import React from "react";
+import { CommentsListContainer } from "./containers/CommentsListContainer";
 
-const App = () => {
-  return <div className="App">Here will be a list of comments!</div>;
-};
+const App = () => <CommentsListContainer />;
 
 export default App;
