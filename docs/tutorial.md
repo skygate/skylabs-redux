@@ -639,9 +639,7 @@ Our app component should look like this:
 ```javascript
 import React from "react";
 
-const App = () => {
-  return <div className="App">Here will a list of comments!</div>;
-};
+const App = () => <div className="App">Here will a list of comments!</div>;
 
 export default App;
 ```
