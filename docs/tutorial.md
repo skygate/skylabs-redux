@@ -12,6 +12,9 @@
   - [Exercise 4](#exercise-4)
 - [Connecting React with Redux](#connecting-react-with-redux)
   - [App Component](#app-component)
+  - [Comment Component](#comment-component)
+  - [CommentsList component](#commentslist-component)
+  - [CommentsListContainer component](#commentslistcontainer-component)
 
 ## Three Principles
 
@@ -630,3 +633,79 @@ Provider is a high order component coming from react-redux - it wraps up React a
 ![index.js with Provider](./images/index-with-provider.png)
 
 ### App Component
+
+Our app component should look like this:
+
+```javascript
+import React from "react";
+
+const App = () => {
+  return <div className="App">Here will a list of comments!</div>;
+};
+
+export default App;
+```
+
+You need to change the file name (exactly extension) for `App.jsx`.
+For now it's enough, we return to this component later.
+
+### Comment Component
+
+This component will be responsible for displaying a single comment in the CommentsList component.
+Create a folder `scr/components`. Then create a file `Comment.jsx`.
+
+![Comment component code](./images/comment-1.png)
+
+As you can see it's very simple. Zero logic. Only presentation.
+That's what exactly should the component do.
+
+### CommentsList component
+
+In this component, we'll be displaying all of the comments using created earlier Comments component.
+
+```javascript
+import React from "react";
+
+import { Comment } from "./Comment";
+
+export const CommentsList = ({ comments }) => (
+  <ul>
+    {comments.map(comment => (
+      <Comment key={comment.id} {...comment} />
+    ))}
+  </ul>
+);
+```
+
+### CommentsListContainer component
+
+Time to connect our React component to the Redux store. We will use the react-redux method `connect`.
+
+Let's do this. In the folder `src/containers` create a file `CommentsListContainer.jsx` with the following"
+
+```javascript
+import { connect } from "react-redux";
+
+import { CommentsList } from "../components/CommentsList";
+
+const mapStateToProps = state => ({
+  comments: state.comments
+});
+
+export const CommentsListContainer = connect(mapStateToProps)(CommentsList);
+```
+
+The function **mapStateToProps** on input gets the app state and on output returns an object with the specified part of the app state.
+In our case, the specified part of app state is `state.comments`.
+It will be passed to the component CommentList as its props `comments` using the function `connect`.
+
+Time to make small test. In file `index.js` import an action creator `addComment`. Then on the bottom of the file (below ReactDOM.render() method) put these two lines.
+
+```javascript
+store.dispatch(addComment("The first comment!"));
+store.dispatch(addComment("The second comment!"));
+```
+
+Yeah! It's kind of a hardcode, but if you done all things properly you should see something like this:
+
+So if everything is OK, remove this added code.
