@@ -230,16 +230,9 @@ Don't forget to export each action and each action creator.
 
 ## Reducers
 
-A **reducer** is a **pure function**.
-It always produces the same output when the input stays the same. It has no _side-effects_, thus it is only an input/output operation.
-A reducer has two inputs: _current application's state and action_.
-The state is always the global state object from the Redux store.
-The action is the dispatched action with a type and optional payload.
-The reducer reduces - that explains the naming - the previous state and incoming action to a new state.
+A **reducer** is a **pure function**. It always produces the same output when the input stays the same. It has no _side-effects_, thus it is only an input/output operation. A reducer has two inputs: _current application's state and action_. The state is always the global state object from the Redux store. The action is the dispatched action with a type and optional payload. The reducer reduces - that explains the naming - the previous state and incoming action to a new state.
 
-Before we start writing our reducers function we need to think about how the state's structure of our app should look.
-Keep in mind that this structure should be as flat as possible.
-Our app is a simple case, comments are anonymous so we have only a comment's list - the state structure is an array with comments.
+Before we start writing our reducers function we need to think about how the state's structure of our app should look. Keep in mind that this structure should be as flat as possible. Our app is a simple case, comments are anonymous so we have only a comment's list - the state structure is an array with comments.
 
 ```javascript
 {
@@ -292,10 +285,7 @@ Time to write the first reducer.
 
 In `src` create folder `reducers`. In this folder create file `reducers.js`.
 
-As you know, reducer on the input gets a current state.
-But...
-What if our app just start and there is no current state yet?
-For this case, we prepare `initialState` variable.
+As you know, reducer on the input gets a current state. But... What if our app just start and there is no current state yet? For this case, we prepare `initialState` variable.
 
 ```javascript
 const initialState = {
@@ -314,12 +304,9 @@ const reducer = (state = initialState, action) => {
 
 So we have done handling the initial application state. It's time to handle actions.
 
-The reducer calculates the new state depending on the action type.
-Moreover, it should return at least the current state when no action type matches.
-When the action type matches a valid clause the reducer calculates the new state and returns a new object.
+The reducer calculates the new state depending on the action type. Moreover, it should return at least the current state when no action type matches. When the action type matches a valid clause the reducer calculates the new state and returns a new object.
 
-In JavaScript, a **switch case** can help to evaluate different action types.
-Otherwise, it returns the previous state as default.
+In JavaScript, a **switch case** can help to evaluate different action types. Otherwise, it returns the previous state as default.
 
 Let's start with the add comment action.
 
@@ -353,9 +340,7 @@ import { ADD_COMMENT } from "../actions/actions";
 
 So the first change of app state is handled.
 
-The case that needs more effort on the first sight is the remove comment action.
-The new state should contain a comments list (array) without the one removed comment.
-But...
+The case that needs more effort on the first sight is the remove comment action. The new state should contain a comments list (array) without the one removed comment. But...
 
 With `Array.filter()` method - it will be easy. All that we need to do is filter the current comments list and return all comments with _id_ different than removed one.
 
@@ -401,10 +386,7 @@ The goal is to write code for handling all other actions (edit, vote). Note that
 
 ## Combine reducers
 
-Our app state is combined from two small states: `comments` and `users`.
-When you look closer to the reducers function, you can see that for each comment action we are taking the whole state of the app.
-This no looks pretty and need from us more work.
-So because the comments state is not related with the user state the best practice is to extract them to separated files.
+Our app state is combined from two small states: `comments` and `users`. When you look closer to the reducers function, you can see that for each comment action we are taking the whole state of the app. This no looks pretty and need from us more work. So because the comments state is not related with the user state the best practice is to extract them to separated files.
 
 Let's do this for the comment's reducer.
 
@@ -424,16 +406,9 @@ const commentsReducer = (state = [], action) => {
 };
 ```
 
-As you can see, now the initial state is an empty array.
-We don't need to care about the whole state of the app.
-Our new reducer will handle only the part of the app state that is related to comments.
-Handling small parts of data is always easier and makes code cleaner.
-Our new reducer returns a new array of comments - there is no mutation and it is a pure function - so we don't break any of the three Redux principles.
+As you can see, now the initial state is an empty array. We don't need to care about the whole state of the app. Our new reducer will handle only the part of the app state that is related to comments. Handling small parts of data is always easier and makes code cleaner. Our new reducer returns a new array of comments - there is no mutation and it is a pure function - so we don't break any of the three Redux principles.
 
-Ok, we have our new separated reducers.
-Time to merging them into one the root reducer.
-The Redux has a helper function called `combineReducers` that help us to merge reducer into one reducer.
-It can look like this below:
+Ok, we have our new separated reducers. Time to merging them into one the root reducer. The Redux has a helper function called `combineReducers` that help us to merge reducer into one reducer. It can look like this below:
 
 ```javascript
 import { combineReducers } from "redux";
@@ -449,8 +424,7 @@ const rootReducer = combineReducers({
 
 ### Exercise 3
 
-Your goal is to refactor file `reducers.js` that will import the extracted **comments** reducer (it should be in a separated file called `commentsReducer.js`).
-Don't waste your time for the users' reducer file - we don't create any action for users state - so you can just return the unchanged user state in it.
+Your goal is to refactor file `reducers.js` that will import the extracted **comments** reducer (it should be in a separated file called `commentsReducer.js`). Don't waste your time for the users' reducer file - we don't create any action for users state - so you can just return the unchanged user state in it.
 
 **Don't look below.**
 
@@ -481,18 +455,10 @@ Don't waste your time for the users' reducer file - we don't create any action f
 
 ## Store
 
-What is Redux Store?
-The store is an object that holds the whole state of our application.
-It's a place that 'glues' actions and reducers.
-There should be only one store in Redux application.
-The only way to change the state inside it is to dispatch an action on it.
+What is Redux Store? The store is an object that holds the whole state of our application. It's a place that 'glues' actions and reducers. There should be only one store in Redux application. The only way to change the state inside it is to dispatch an action on it.
 
-Let's create our store.
-For this, use a function `createStore()`.
-This function takes as the first argument the higher orderer reducer (this one which is not composed with others).
-In our app it's `rootReducer`.
-Note that function createStore as the second argument (optional) takes preloaded state of store.
-It can be usefully in eg. to hydrate the state from server.
+Let's create our store. For this, use a function `createStore()`. This function takes as the first argument the higher orderer reducer (this one which is not composed with others). In our app it's `rootReducer`. Note that function createStore as the second argument (optional) takes preloaded state of store. It can be usefully in eg. to hydrate the state from server.
+
 In the folder `src/store` create file `store.js`
 
 ```javascript
@@ -507,9 +473,7 @@ export default store;
 
 Yeah! That it's! Our store is created!
 
-Redux itself is a small library about 2KB.
-The Redux store exposes a simple API for managing the state.
-The most important methods are:
+Redux itself is a small library about 2KB. The Redux store exposes a simple API for managing the state. The most important methods are:
 
 - `getState` for accessing the current state of the application
 - `dispatch` for dispatching an action
@@ -517,8 +481,7 @@ The most important methods are:
 
 Time to play with them. We will play in the browser's console.
 
-So we need to export as global variables the store and the actions we have created earlier.
-Open file `src/index.js` and delete all from it. Update it with the following code:
+So we need to export as global variables the store and the actions we have created earlier. Open file `src/index.js` and delete all from it. Update it with the following code:
 
 ```javascript
 import { store } from "./store/store";
@@ -535,7 +498,7 @@ Now run dev server with:
 npm start
 ```
 
-head over http://localhost:3000 and open up the console with F12.
+Head over http://localhost:3000 and open up the console with F12.
 
 We've exported the store as a global variable so we can access its methods. Let's try!
 
@@ -555,8 +518,7 @@ Zero comments, zero users. Indeed! We haven't update the initial state yet.
 
 The interesting thing is that we can listen to state updates with **subscribe**.
 
-The subscribe method accepts a callback that will call whenever an action is dispatched.
-Dispatching an action means notifying the store that we want to change the state.
+The subscribe method accepts a callback that will call whenever an action is dispatched. Dispatching an action means notifying the store that we want to change the state.
 
 Let's register a callback!
 
@@ -564,9 +526,7 @@ Let's register a callback!
 store.subscribe(() => console.log("Yeah! It's Redux!"));
 ```
 
-The only way to change state in Redux is dispatching an action.
-To do this you need to call the **dispatch** method.
-We have only one action on our disposal: `addComment()` for adding a new comment to the state.
+The only way to change state in Redux is dispatching an action. To do this you need to call the **dispatch** method. We have only one action on our disposal: `addComment()` for adding a new comment to the state.
 
 Let’s dispatch the action with:
 
@@ -599,16 +559,11 @@ Simply - the Redux!
 
 ### Exercise 4
 
-Explore these three methods as an exercise.
-Add more actions and play with them in the browser's console.
+Explore these three methods as an exercise. Add more actions and play with them in the browser's console.
 
 ## Connecting React with Redux
 
-Redux is framework agnostic.
-It can be used with vanilla JS. Or with Angular. Or with React.
-There are many bindings that can join Redux together with your favorite framework.
-For React is **react-redux**.
-You can install it by using:
+Redux is framework agnostic. It can be used with vanilla JS. Or with Angular. Or with React. There are many bindings that can join Redux together with your favorite framework. For React is **react-redux**. You can install it by using:
 
 ```bash
 npm install react-redux
@@ -624,14 +579,11 @@ The fundamental things to know are:
 - the mapStateToProps function
 - the mapDispatchToProps function or object
 
-**mapStateToProps** does exactly what its name suggests:
-it connects a part of the Redux state to the props of a React component.
+**mapStateToProps** does exactly what its name suggests: it connects a part of the Redux state to the props of a React component.
 
-**mapDispatchToProps** does something similar,
-but for actions. mapDispatchToProps connects Redux actions to React props.
+**mapDispatchToProps** does something similar, but for actions. mapDispatchToProps connects Redux actions to React props.
 
-To start connecting Redux with React we’re going to use Provider in `src/index.js`.
-Provider is a high order component coming from react-redux - it wraps up React app and makes available to it the entire Redux’s store.
+To start connecting Redux with React we’re going to use Provider in `src/index.js`. Provider is a high order component coming from react-redux - it wraps up React app and makes available to it the entire Redux’s store.
 
 ![index.js with Provider](./images/index-with-provider.png)
 
@@ -647,18 +599,15 @@ const App = () => <div className="App">Here will a list of comments!</div>;
 export default App;
 ```
 
-You need to change the file name (exactly extension) for `App.jsx`.
-For now it's enough, we return to this component later.
+You need to change the file name (exactly extension) for `App.jsx`. For now it's enough, we return to this component later.
 
 ### Comment Component
 
-This component will be responsible for displaying a single comment in the CommentsList component.
-Create a folder `scr/components`. Then create a file `Comment.jsx`.
+This component will be responsible for displaying a single comment in the CommentsList component. Create a folder `scr/components`. Then create a file `Comment.jsx`.
 
 ![Comment component code](./images/comment-1.png)
 
-As you can see it's very simple. Zero logic. Only presentation.
-That's what exactly should the component do.
+As you can see it's very simple. Zero logic. Only presentation. That's what exactly should the component do.
 
 ### CommentsList component
 
@@ -678,8 +627,7 @@ const CommentsListRaw = ({ comments }) => (
 );
 ```
 
-Time to connect our React component to the Redux store. We will use the react-redux method `connect`.
-We need to import it. Add the following import:
+Time to connect our React component to the Redux store. We will use the react-redux method `connect`. We need to import it. Add the following import:
 
 ```javascript
 import { connect } from "react-redux";
@@ -695,9 +643,7 @@ const mapStateToProps = state => ({
 export const CommentsList = connect(mapStateToProps)(CommentsListRaw);
 ```
 
-The function **mapStateToProps** on input gets the app state and on output returns an object with the specified part of the app state.
-In our case, the specified part of app state is `state.comments`.
-It will be passed to the component CommentList as its props `comments` using the function `connect`.
+The function **mapStateToProps** on input gets the app state and on output returns an object with the specified part of the app state. In our case, the specified part of app state is `state.comments`. It will be passed to the component CommentList as its props `comments` using the function `connect`.
 
 Let's return to App component and update it.
 
@@ -721,9 +667,9 @@ Yeah! It's kind of a hardcode, but if you have done all things properly you shou
 
 ![App screenshot](./images/app-screenshot1.png)
 
-Now we try to connect an action to component. Let's do fo voting up.
-Go back to `Comments.jsx`.
-As in CommentsList component we need to import `connect` method from _react-redux_. We need to import an action creator for voting up. It will be `voteUpComment`.
+Now we will try to connect an action to component. Let's do for voting up.
+
+Go back to `Comments.jsx`. As in CommentsList component we need to import `connect` method from _react-redux_. We need to import an action creator for voting up. It will be `voteUpComment`.
 
 ```javascript
 import React from "react";
@@ -744,11 +690,7 @@ export const Comment = connect(
 )(CommentRaw);
 ```
 
-As you can see we do some refactoring.
-We change the name of the base component and add a button for voting up.
-The last thing we need to do is dispatch the action to the store.
-As earlier, we use `connect`, but this time we don't pass any state to props so the first argument is null.
-The second one is an object with our action creators that we pass to the component.
+As you can see we do some refactoring. We change the name of the base component and add a button for voting up. The last thing we need to do is dispatch the action to the store. As earlier, we use `connect`, but this time we don't pass any state to props so the first argument is null. The second one is an object with our action creators that we pass to the component.
 
 ![App screenshot](./images/app-screenshot2.png)
 
@@ -756,8 +698,7 @@ The second one is an object with our action creators that we pass to the compone
 
 Time to own work.
 
-Add an opposite feature to the voting up.
-If you want you can add a feature for delete a comment or even a feature for add a comment.
+Add an opposite feature to the voting up. If you want you can add a feature for delete a comment or even a feature for add a comment.
 
 **NOTE!** So if everything is OK, remove this added code \*\*
 
@@ -778,9 +719,7 @@ function exampleMiddleware() {
 }
 ```
 
-In most case middleware is additional software that we often download as packages.
-It is fired between the moment in which we dispatch the action and the moment in which the reducer receives it.
-As well we can write our own middleware.
+In most case middleware is additional software that we often download as packages. It is fired between the moment in which we dispatch the action and the moment in which the reducer receives it. As well we can write our own middleware.
 
 ### Redux Dev Tools
 
@@ -812,8 +751,7 @@ Now we can inspect our app.
 
 Middleware can be custom function too. We can create own middleware. Let's do this.
 
-Our middleware will be checking if the new comment that is adding contain any word from the list of forbidden words.
-When it contains we will dispatch an action "FOUND_BAD_WORD".
+Our middleware will be checking if the new comment that is adding contain any word from the list of forbidden words. When it contains we will dispatch an action "FOUND_BAD_WORD".
 
 ```javascript
 import { ADD_COMMENT } from "../actions/actions";
@@ -835,11 +773,7 @@ export const forbiddenWordsMiddleware = ({ dispatch }) => {
 };
 ```
 
-Yeah! It's simple middleware but you can see how it works.
-There's one step to do before we can use them.
-We need to update our Redux store.
-Because we want to use our custom middleware together with the Redux Dev Tools
-we need to use utility `applyMiddleware`.
+Yeah! It's simple middleware but you can see how it works. There's one step to do before we can use them. We need to update our Redux store. Because we want to use our custom middleware together with the Redux Dev Tools we need to use utility `applyMiddleware`.
 
 ```javascript
 import { createStore, applyMiddleware, compose } from "redux";
