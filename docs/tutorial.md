@@ -163,7 +163,7 @@ To remove comment we need know which comment should be removed. This can be done
 }
 ```
 
-Next edit comment. For successfully edit comment we need exactly know which comment and what is new content of the comment. So an action object should look like this:
+Next editing comment. In order to successfully edit a comment we need to know exactly which comment we want to edit. we also have to know the new content of the comment. So an action object should look like this:
 
 ```javascript
 {
@@ -285,7 +285,7 @@ Time to write the first reducer.
 
 In `src` create folder `reducers`. In this folder create file `reducers.js`.
 
-As you know, reducer on the input gets a current state. But... What if our app just start and there is no current state yet? For this case, we prepare `initialState` variable.
+As you know, reducer on the input gets a current state. But... What if our app just start and there is no current state yet? In such case, we prepare `initialState` variable.
 
 ```javascript
 const initialState = {
@@ -386,7 +386,7 @@ The goal is to write code for handling all other actions (edit, vote). Note that
 
 ## Combine reducers
 
-Our app state is combined from two small states: `comments` and `users`. When you look closer to the reducers function, you can see that for each comment action we are taking the whole state of the app. This no looks pretty and need from us more work. So because the comments state is not related with the user state the best practice is to extract them to separated files.
+Our app state is combined from two small states: `comments` and `users`. When you look closer to the reducers function, you can see that for each comment action we are taking the whole state of the app. This doesn't look pretty and requires more work. So because the comments state is not related with the user state the best practice is to extract them to separated files.
 
 Let's do this for the comment's reducer.
 
@@ -408,7 +408,7 @@ const commentsReducer = (state = [], action) => {
 
 As you can see, now the initial state is an empty array. We don't need to care about the whole state of the app. Our new reducer will handle only the part of the app state that is related to comments. Handling small parts of data is always easier and makes code cleaner. Our new reducer returns a new array of comments - there is no mutation and it is a pure function - so we don't break any of the three Redux principles.
 
-Ok, we have our new separated reducers. Time to merging them into one the root reducer. The Redux has a helper function called `combineReducers` that help us to merge reducer into one reducer. It can look like this below:
+Ok, we have our new separated reducers. Time to merge them into one the root reducer. The Redux has a helper function called `combineReducers` that helps us to merge reducer into one reducer. It looks like the one below:
 
 ```javascript
 import { combineReducers } from "redux";
@@ -457,7 +457,7 @@ Your goal is to refactor file `reducers.js` that will import the extracted **com
 
 What is Redux Store? The store is an object that holds the whole state of our application. It's a place that 'glues' actions and reducers. There should be only one store in Redux application. The only way to change the state inside it is to dispatch an action on it.
 
-Let's create our store. For this, use a function `createStore()`. This function takes as the first argument the higher orderer reducer (this one which is not composed with others). In our app it's `rootReducer`. Note that function createStore as the second argument (optional) takes preloaded state of store. It can be usefully in eg. to hydrate the state from server.
+Let's create our store. For this, use a function `createStore()`. This function takes as the first argument the higher orderer reducer (the one which is not composed with others). In our app it's `rootReducer`. Note that function createStore as the second argument (optional) takes preloaded state of store. It can be useful in eg. to hydrate the state from server.
 
 In the folder `src/store` create file `store.js`
 
@@ -471,7 +471,7 @@ const store = createStore(rootReducer);
 export default store;
 ```
 
-Yeah! That it's! Our store is created!
+Yeah! That's it! Our store is created!
 
 Redux itself is a small library about 2KB. The Redux store exposes a simple API for managing the state. The most important methods are:
 
@@ -594,7 +594,9 @@ Our app component should look like this:
 ```javascript
 import React from "react";
 
-const App = () => <div className="App">Here will a list of comments!</div>;
+const App = () => (
+  <div className="App">There will be a list of comments here!</div>
+);
 
 export default App;
 ```
@@ -607,7 +609,7 @@ This component will be responsible for displaying a single comment in the Commen
 
 ![Comment component code](./images/comment-1.png)
 
-As you can see it's very simple. Zero logic. Only presentation. That's what exactly should the component do.
+As you can see it's very simple. Zero logic. Only presentation. That's exactly what the component should do.
 
 ### CommentsList component
 
@@ -698,7 +700,7 @@ As you can see we do some refactoring. We change the name of the base component 
 
 Time to own work.
 
-Add an opposite feature to the voting up. If you want you can add a feature for delete a comment or even a feature for add a comment.
+Add an opposite feature to the voting up. If you want you can add a feature for deleting a comment or even a feature for adding a comment.
 
 **NOTE!** So if everything is OK, remove this added code \*\*
 
